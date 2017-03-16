@@ -1,14 +1,7 @@
----
-title: "Quick start on taxlist"
-author: "Miguel Alvarez"
-date: "2017-03-16"
-output:
-  html_document:
-  	toc: true
-  	toc_float: true
----
+# Quick start on taxlist
+*Miguel Alvarez*
 
-# Introduction
+## Introduction
 To install the last version of `taxlist`, you can use the package `devtools`:
 
 
@@ -18,7 +11,7 @@ library(devtools)
 install_github("kamapu/taxlist")
 ```
 
-# Starting with building blocks
+## Starting with building blocks
 
 I will take an example from "Helechos de Chile" **(Gunkel 1984)** to demonstrate
 how to construct a `taxlist` object from its building blocks.
@@ -134,7 +127,7 @@ summary(Fern, "all")
 ## ------------------------------
 ```
 
-# Set parent-child relationships and synonyms
+## Set parent-child relationships and synonyms
 
 Now set the parent-child relations.
 Relating to the previous display, you know that the species (concept ID **1**)
