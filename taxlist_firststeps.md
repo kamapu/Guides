@@ -1,7 +1,17 @@
 # Quick start on taxlist
 *Miguel Alvarez*
 
+<br><br>
+
 ## Introduction
+This is a guide for constructing `taxlist` objects via command lines.
+For accessing this document from your **R console** use following command:
+
+
+```r
+browseURL("https://github.com/kamapu/Guides/blob/master/taxlist_firststeps.md")
+```
+
 To install the last version of `taxlist`, you can use the package `devtools`:
 
 
