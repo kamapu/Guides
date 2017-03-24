@@ -1,7 +1,7 @@
 # Quick start on taxlist
 *Miguel Alvarez*
 
-<br><br>
+<br>
 
 ## Introduction
 This is a guide for constructing `taxlist` objects via command lines.
