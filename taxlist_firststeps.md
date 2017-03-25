@@ -30,7 +30,36 @@ The first step will be to generate an empty `taxlist` object:
 
 ```r
 library(taxlist)
+```
 
+```
+## Loading required package: vegdata
+```
+
+```
+## Loading required package: foreign
+```
+
+```
+## This is vegdata 0.9
+```
+
+```
+## This is taxlist 0.0.0.9014
+```
+
+```
+## 
+## Attaching package: 'taxlist'
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     levels
+```
+
+```r
 Fern <- new("taxlist")
 summary(Fern)
 ```
@@ -219,5 +248,5 @@ summary(Fern, "all")
 ```
 
 Hierarchical levels, parent-child relationships and synonyms are included in the
-exemplary data `Easplist`.
+exemple data set `Easplist`.
 For further functions, look to the package's manual.

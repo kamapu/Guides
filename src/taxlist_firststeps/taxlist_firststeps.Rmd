@@ -90,5 +90,5 @@ summary(Fern, "all")
 ```
 
 Hierarchical levels, parent-child relationships and synonyms are included in the
-exemplary data `Easplist`.
+exemple data set `Easplist`.
 For further functions, look to the package's manual.
