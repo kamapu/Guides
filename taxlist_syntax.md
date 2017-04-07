@@ -1,4 +1,4 @@
-# Quick start on taxlist
+# Applying taxlist to syntaxonomic schemes
 *Miguel Alvarez*
 
 <br>
@@ -32,6 +32,32 @@ The scheme includes 10 associations classified into 4 classes:
 Start the session loading the package `taxlist` and the required data:
 
 
+```
+## Loading required package: vegdata
+```
+
+```
+## Loading required package: foreign
+```
+
+```
+## This is vegdata 0.9
+```
+
+```
+## This is taxlist 0.0.0.9014
+```
+
+```
+## 
+## Attaching package: 'taxlist'
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     levels
+```
 
 
 ```r
