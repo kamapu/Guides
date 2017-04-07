@@ -32,34 +32,6 @@ The scheme includes 10 associations classified into 4 classes:
 Start the session loading the package `taxlist` and the required data:
 
 
-```
-## Loading required package: vegdata
-```
-
-```
-## Loading required package: foreign
-```
-
-```
-## This is vegdata 0.9
-```
-
-```
-## This is taxlist 0.0.0.9014
-```
-
-```
-## 
-## Attaching package: 'taxlist'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     levels
-```
-
-
 ```r
 library(taxlist)
 load(url("https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda"))

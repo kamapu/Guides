@@ -29,10 +29,6 @@ The scheme includes 10 associations classified into 4 classes:
 
 Start the session loading the package `taxlist` and the required data:
 
-```{r, echo=FALSE, results="hide"}
-library(taxlist)
-```
-
 ```{r}
 library(taxlist)
 load(url("https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda"))
