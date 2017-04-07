@@ -32,10 +32,16 @@ The scheme includes 10 associations classified into 4 classes:
 Start the session loading the package `taxlist` and the required data:
 
 
+
+
 ```r
 library(taxlist)
 load(url("https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda"))
 ```
+
+The data frame `Concepts` contains the list of syntaxon names that are
+considered as accepted in the previous scheme.
+This list will be used to insert the new concepts in the `taxlist` object.
 
 
 ```r
@@ -60,9 +66,10 @@ head(Concepts)
 ```
 
 ```r
-# Creating taxlist object
 Syntax <- new("taxlist")
+
 levels(Syntax) <- c("association","alliance","order","class")
+
 taxon_views(Syntax) <- data.frame(ViewID=1, Author="Alvarez M", Year=2017,
         Title="Classification of aquatic and semi-aquatic vegetation in East Africa",
         stringsAsFactors=FALSE)
@@ -93,14 +100,66 @@ summary(Syntax)
 ## number of concepts in level class: 4
 ```
 
+Note that the function `new` created an empty object, while with `levels` the
+default levels (syntaxonomical hierarchies) will be inserted.
+For the later function, the levels have to be inserted from the lower to the
+higher ranks.
+
+The next step will be inserting those names that are considered as synonyms for
+the respective syntaxa.
+Synonyms are included in the data frame `Synonyms`.
+
+
 ```r
-# Adding synonyms
+head(Synonyms)
+```
+
+```
+##   TaxonConceptID                             TaxonName
+## 1              1                          Stratiotetea
+## 2              3                  Pistion pantropicale
+## 3              8               Utriculario-Nymphaeetum
+## 4              8 Utriculario exoletae-Nymphaeetum loti
+## 5              9                          Phragmitetea
+## 6             10                           Papyretalia
+##                   AuthorName
+## 1    den Hartog & Segal 1964
+## 2               Schmitz 1971
+## 3 (Lebrun 1947) Léonard 1950
+## 4    Szafranski & Apema 1983
+## 5      Tüxen & Preising 1942
+## 6                Lebrun 1947
+```
+
+```r
 Syntax <- with(Synonyms, add_synonym(Syntax, ConceptID=TaxonConceptID,
                 TaxonName=TaxonName, AuthorName=AuthorName))
+```
 
-# Adding traits
+Finally, the codes provided for the associations will be inserted as traits
+properties) of them in the slot `taxonTraits`.
+
+
+```r
+head(Codes)
+```
+
+```
+##   TaxonConceptID Code
+## 1             12  HE1
+## 2             13  HE2
+## 3             14  HE3
+## 4             20  HE4
+## 5             17  HE5
+## 6             18  HE6
+```
+
+```r
 taxon_traits(Syntax) <- Codes
+```
 
+
+```r
 # Get Phragmitetalia
 Syntax_Phr <- subset(Syntax, charmatch("Phragmitetalia", TaxonName), slot="names")
 Syntax_Phr <- get_parents(Syntax, Syntax_Phr)

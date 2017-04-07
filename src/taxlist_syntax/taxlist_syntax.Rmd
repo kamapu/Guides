@@ -1,0 +1,96 @@
+# Quick start on taxlist
+*Miguel Alvarez*
+
+<br>
+
+## Introduction
+This guide demonstrates the application of `taxlist` objects to syntaxonomic
+schemes.
+For accessing this document from your **R console** use following command:
+
+```{r, eval=FALSE}
+browseURL("https://github.com/kamapu/Guides/blob/master/taxlist_syntax.md")
+```
+
+It is strongly recommended to install the last version of the `taxlist` package
+in every session.
+
+```{r, eval=FALSE}
+library(devtools)
+install_github("kamapu/taxlist")
+```
+
+## Example syntaxonomic scheme
+For this guide it will be used as example an scheme proposed by the author for
+aquatic and semi-aquatic vegetation in Tanzania (**Alvarez 2017**).
+The scheme includes 10 associations classified into 4 classes:
+
+![](images/wetlands_syntax.png)
+
+Start the session loading the package `taxlist` and the required data:
+
+```{r, echo=FALSE, results="hide"}
+library(taxlist)
+```
+
+```{r}
+library(taxlist)
+load(url("https://github.com/kamapu/Guides/raw/master/data/wetlands_syntax.rda"))
+```
+
+The data frame `Concepts` contains the list of syntaxon names that are
+considered as accepted in the previous scheme.
+This list will be used to insert the new concepts in the `taxlist` object.
+
+```{r}
+head(Concepts)
+
+Syntax <- new("taxlist")
+
+levels(Syntax) <- c("association","alliance","order","class")
+
+taxon_views(Syntax) <- data.frame(ViewID=1, Author="Alvarez M", Year=2017,
+        Title="Classification of aquatic and semi-aquatic vegetation in East Africa",
+        stringsAsFactors=FALSE)
+
+Syntax <- with(Concepts, add_concept(Syntax, TaxonName=TaxonName,
+                AuthorName=AuthorName, Parent=Parent, Level=Level,
+                ViewID=rep(1, nrow(Concepts))))
+
+summary(Syntax)
+```
+
+Note that the function `new` created an empty object, while with `levels` the
+default levels (syntaxonomical hierarchies) will be inserted.
+For the later function, the levels have to be inserted from the lower to the
+higher ranks.
+
+The next step will be inserting those names that are considered as synonyms for
+the respective syntaxa.
+Synonyms are included in the data frame `Synonyms`.
+
+```{r}
+head(Synonyms)
+Syntax <- with(Synonyms, add_synonym(Syntax, ConceptID=TaxonConceptID,
+                TaxonName=TaxonName, AuthorName=AuthorName))
+```
+
+Finally, the codes provided for the associations will be inserted as traits
+properties) of them in the slot `taxonTraits`.
+
+```{r}
+head(Codes)
+taxon_traits(Syntax) <- Codes
+```
+
+```{r}
+# Get Phragmitetalia
+Syntax_Phr <- subset(Syntax, charmatch("Phragmitetalia", TaxonName), slot="names")
+Syntax_Phr <- get_parents(Syntax, Syntax_Phr)
+Syntax_Phr <- get_children(Syntax, Syntax_Phr)
+
+summary(Syntax_Phr)
+summary(Syntax_Phr, "all", maxsum=20)
+```
+
+
