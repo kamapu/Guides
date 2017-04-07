@@ -104,6 +104,9 @@ Note that the function `new` created an empty object, while with `levels` the
 default levels (syntaxonomical hierarchies) will be inserted.
 For the later function, the levels have to be inserted from the lower to the
 higher ranks.
+Furthermore the reference defining the concepts included in the syntaxonomic
+scheme was inserted in the object using the function `taxon_views` and finally
+the concepts were inserted by the function `add_concept`.
 
 The next step will be inserting those names that are considered as synonyms for
 the respective syntaxa.
@@ -156,173 +159,78 @@ head(Codes)
 
 ```r
 taxon_traits(Syntax) <- Codes
-```
-
-
-```r
-# Get Phragmitetalia
-Syntax_Phr <- subset(Syntax, charmatch("Phragmitetalia", TaxonName), slot="names")
-Syntax_Phr <- get_parents(Syntax, Syntax_Phr)
-Syntax_Phr <- get_children(Syntax, Syntax_Phr)
-
-summary(Syntax_Phr)
+summary(Syntax)
 ```
 
 ```
-## object size: 9.6 Kb 
+## object size: 12.3 Kb 
 ## validation of 'taxlist' object: TRUE 
 ## 
-## number of names: 20 
-## number of concepts: 14 
-## trait entries: 7 
+## number of names: 37 
+## number of concepts: 26 
+## trait entries: 10 
 ## reference entries: 1 
 ## 
-## concepts with parents: 13 
-## concepts with children: 7 
+## concepts with parents: 22 
+## concepts with children: 16 
 ## 
 ## hierarchical levels: association < alliance < order < class 
-## number of concepts in level association: 7
-## number of concepts in level alliance: 4
-## number of concepts in level order: 2
-## number of concepts in level class: 1
+## number of concepts in level association: 10
+## number of concepts in level alliance: 7
+## number of concepts in level order: 5
+## number of concepts in level class: 4
 ```
 
+For instance, you may like to get the parental chain from an association (let us
+say *Nymphaeetum loti*).
+
+
 ```r
-summary(Syntax_Phr, "all", maxsum=20)
+Nymplot <- subset(Syntax, charmatch("Nymphaeetum", TaxonName), slot="names")
+Nymplot <- get_parents(Syntax, Nymplot)
+summary(Nymplot, "all")
 ```
 
 ```
 ## ------------------------------ 
-## concept ID: 9 
+## concept ID: 5 
 ## view ID: 1 
 ## level: class 
 ## parent: none 
 ## 
 ## # accepted name: 
-## 9 Phragmito-Magno-Caricetea Klika ex Klika & Novák 1941 
-## 
-## # synonyms (1): 
-## 31 Phragmitetea Tüxen & Preising 1942 
+## 5 Potametea Klika ex Klika & Novák 1941 
 ## ------------------------------ 
-## concept ID: 10 
+## concept ID: 6 
 ## view ID: 1 
 ## level: order 
-## parent: 9 
+## parent: 5 
 ## 
 ## # accepted name: 
-## 10 Cyperetalia papyri (Lebrun 1947) Alvarez 2017 
-## 
-## # synonyms (1): 
-## 32 Papyretalia Lebrun 1947 
+## 6 Nymphaeetalia loti Lebrun 1947 
 ## ------------------------------ 
-## concept ID: 11 
+## concept ID: 7 
 ## view ID: 1 
 ## level: alliance 
-## parent: 10 
+## parent: 6 
 ## 
 ## # accepted name: 
-## 11 Cyperion papyri (Lebrun 1947) Alvarez 2017 
-## 
-## # synonyms (1): 
-## 33 Papyrion Lebrun 1947 
+## 7 Nymphaeion loti Lebrun 1947 
 ## ------------------------------ 
-## concept ID: 12 
+## concept ID: 8 
 ## view ID: 1 
 ## level: association 
-## parent: 11 
+## parent: 7 
 ## 
 ## # accepted name: 
-## 12 Cypero papyro-Dryopteridetum gongylodes (Germain 1951) Schmitz 1963 
-## ------------------------------ 
-## concept ID: 13 
-## view ID: 1 
-## level: association 
-## parent: 9 
+## 8 Nymphaeetum loti Lebrun 1947 
 ## 
-## # accepted name: 
-## 13 Ipomoeo aquaticae-Typhetum domingensis Alvarez 2017 
-## ------------------------------ 
-## concept ID: 14 
-## view ID: 1 
-## level: association 
-## parent: 9 
-## 
-## # accepted name: 
-## 14 Leersio hexandrae-Cyperetum exaltati Alvarez 2017 
-## ------------------------------ 
-## concept ID: 15 
-## view ID: 1 
-## level: order 
-## parent: 9 
-## 
-## # accepted name: 
-## 15 Phragmitetalia communis Koch 1926 
-## ------------------------------ 
-## concept ID: 16 
-## view ID: 1 
-## level: alliance 
-## parent: 15 
-## 
-## # accepted name: 
-## 16 Phragmition communis Koch 1926 
-## ------------------------------ 
-## concept ID: 17 
-## view ID: 1 
-## level: association 
-## parent: 16 
-## 
-## # accepted name: 
-## 17 Phragmitetum mauritiani (Lebrun 1947) Schmitz 1988 
-## 
-## # synonyms (1): 
-## 34 Phragmitetum afro-lacustre Lebrun 1947 
-## ------------------------------ 
-## concept ID: 18 
-## view ID: 1 
-## level: association 
-## parent: 16 
-## 
-## # accepted name: 
-## 18 Pycreo polystachyos-Panicetum subalbidum Alvarez 2017 
-## ------------------------------ 
-## concept ID: 19 
-## view ID: 1 
-## level: alliance 
-## parent: 15 
-## 
-## # accepted name: 
-## 19 Magno-Cyperion divitis (Lebrun 1947) Schmitz 1988 
-## 
-## # synonyms (1): 
-## 35 Magno-Cyperion africanum Lebrun 1947 
-## ------------------------------ 
-## concept ID: 20 
-## view ID: 1 
-## level: association 
-## parent: 19 
-## 
-## # accepted name: 
-## 20 Cyperetum latifolii (Germain 1951) Schmitz 1988 
-## ------------------------------ 
-## concept ID: 21 
-## view ID: 1 
-## level: alliance 
-## parent: 15 
-## 
-## # accepted name: 
-## 21 Echinochloion crus-pavonis (Léonard 1950) Schmitz 1988 
-## 
-## # synonyms (1): 
-## 36 Echinochloion tropicale Léonard 1950 
-## ------------------------------ 
-## concept ID: 22 
-## view ID: 1 
-## level: association 
-## parent: 21 
-## 
-## # accepted name: 
-## 22 Ammannio prieurianae-Ethulietum conyzoides Alvarez 2017 
+## # synonyms (2): 
+## 29 Utriculario-Nymphaeetum (Lebrun 1947) Léonard 1950 
+## 30 Utriculario exoletae-Nymphaeetum loti Szafranski & Apema 1983 
 ## ------------------------------
 ```
 
-
+By using the function `subset` we just created a new object containing only the
+association *Nymphaeetum loti*.
+This subset was then used to extract the parental chain from `Syntax`.

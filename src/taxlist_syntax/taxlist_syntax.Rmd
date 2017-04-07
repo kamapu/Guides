@@ -64,6 +64,9 @@ Note that the function `new` created an empty object, while with `levels` the
 default levels (syntaxonomical hierarchies) will be inserted.
 For the later function, the levels have to be inserted from the lower to the
 higher ranks.
+Furthermore the reference defining the concepts included in the syntaxonomic
+scheme was inserted in the object using the function `taxon_views` and finally
+the concepts were inserted by the function `add_concept`.
 
 The next step will be inserting those names that are considered as synonyms for
 the respective syntaxa.
@@ -81,16 +84,18 @@ properties) of them in the slot `taxonTraits`.
 ```{r}
 head(Codes)
 taxon_traits(Syntax) <- Codes
+summary(Syntax)
 ```
+
+For instance, you may like to get the parental chain from an association (let us
+say *Nymphaeetum loti*).
 
 ```{r}
-# Get Phragmitetalia
-Syntax_Phr <- subset(Syntax, charmatch("Phragmitetalia", TaxonName), slot="names")
-Syntax_Phr <- get_parents(Syntax, Syntax_Phr)
-Syntax_Phr <- get_children(Syntax, Syntax_Phr)
-
-summary(Syntax_Phr)
-summary(Syntax_Phr, "all", maxsum=20)
+Nymplot <- subset(Syntax, charmatch("Nymphaeetum", TaxonName), slot="names")
+Nymplot <- get_parents(Syntax, Nymplot)
+summary(Nymplot, "all")
 ```
 
-
+By using the function `subset` we just created a new object containing only the
+association *Nymphaeetum loti*.
+This subset was then used to extract the parental chain from `Syntax`.
